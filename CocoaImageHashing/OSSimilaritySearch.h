@@ -8,15 +8,7 @@
 
 #import "OSTypes+Internal.h"
 
-@protocol OSSimilaritySearchDelegate <NSObject>
-
-- (void)similaritySearch:(OSSimilaritySearch *)search didChangeProgress:(CGFloat)progress;
-
-@end
-
 @interface OSSimilaritySearch : NSObject
-
-@property (nonatomic, weak, readwrite) id<OSSimilaritySearchDelegate> delegate;
 
 NS_ASSUME_NONNULL_BEGIN
 

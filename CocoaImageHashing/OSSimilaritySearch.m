@@ -100,25 +100,14 @@
 {
     NSAssert(imageTuples, @"Image tuple array must not be nil");
     NSUInteger __block i = 0;
-    __weak typeof(self) weakSelf = self;
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self
         similarImagesWithProvider:imageHashingProviderId
         withHashDistanceThreshold:hashDistanceThreshold
             forImageStreamHandler:^OSTuple<OSImageId *, NSData *> * {
-                NSUInteger tuplesCount = [imageTuples count];
-
-                if (i >= tuplesCount)
-                {
-                    return nil;
-                }
-
-                if (weakSelf != nil)
-                {
-                    CGFloat progress = (CGFloat)i / (CGFloat)tuplesCount - 1;
-
-                    [weakSelf.delegate similaritySearch:weakSelf didChangeProgress:progress];
-                }
-                return [imageTuples objectAtIndex:i++];
+              if (i >= [imageTuples count]) {
+                  return nil;
+              }
+              return [imageTuples objectAtIndex:i++];
             }];
     return result;
 }
