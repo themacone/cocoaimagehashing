@@ -97,18 +97,30 @@
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)imageTuples
+                                                            progressHandler:(void(^)(double progress))progressHandler
 {
     NSAssert(imageTuples, @"Image tuple array must not be nil");
     NSUInteger __block i = 0;
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self
         similarImagesWithProvider:imageHashingProviderId
         withHashDistanceThreshold:hashDistanceThreshold
-            forImageStreamHandler:^OSTuple<OSImageId *, NSData *> * {
-              if (i >= [imageTuples count]) {
-                  return nil;
-              }
-              return [imageTuples objectAtIndex:i++];
-            }];
+            forImageStreamHandler:^OSTuple<OSImageId *, NSData *> *
+    {
+        NSUInteger tuplesCount = [imageTuples count];
+
+        if (progressHandler != nil)
+        {
+            double progress = (double)(i + 1) / (double)(tuplesCount);
+
+            progressHandler(progress);
+        }
+
+        if (i >= tuplesCount)
+        {
+            return nil;
+        }
+        return [imageTuples objectAtIndex:i++];
+    }];
     return result;
 }
 

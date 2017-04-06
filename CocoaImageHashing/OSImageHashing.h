@@ -135,27 +135,31 @@ NS_ASSUME_NONNULL_BEGIN
  * small enough to disregard the memory consumption.
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images;
+                                                                        forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                                  progressHandler:(void(^)(double progress))progressHandler;
 
 /**
  * @see -[OSImageHashing similarImagesWithHashingQuality::];
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
                                                         withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                                        forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images;
+                                                                        forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                                  progressHandler:(void(^)(double progress))progressHandler;
 
 /**
  * @see -[OSImageHashing similarImagesWithHashingQuality::];
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
-                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images;
+                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                            progressHandler:(void(^)(double progress))progressHandler;
 
 /**
  * @see -[OSImageHashing similarImagesWithHashingQuality::];
  */
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images;
+                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                            progressHandler:(void(^)(double progress))progressHandler;
 
 #pragma mark - Array sorting with image similarity metrics for generic NSArrays
 

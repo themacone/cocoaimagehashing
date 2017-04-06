@@ -229,45 +229,53 @@
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
                                                                         forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                                  progressHandler:(void(^)(double progress))progressHandler
 {
     OSImageHashingProviderId providerId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
     id<OSImageHashingProvider> firstProvider = OSImageHashingProviderFromImageHashingProviderId(providerId);
     OSHashDistanceType hashDistanceTreshold = [firstProvider hashDistanceSimilarityThreshold];
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithHashingQuality:imageHashingQuality
                                                                        withHashDistanceThreshold:hashDistanceTreshold
-                                                                                       forImages:images];
+                                                                                       forImages:images
+                                                                                 progressHandler:progressHandler];
     return result;
 }
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithHashingQuality:(OSImageHashingQuality)imageHashingQuality
                                                         withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                         forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                                  progressHandler:(void(^)(double progress))progressHandler
 {
     OSImageHashingProviderId providerId = OSImageHashingProviderIdForHashingQuality(imageHashingQuality);
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithProvider:providerId
                                                                  withHashDistanceThreshold:hashDistanceThreshold
-                                                                                 forImages:images];
+                                                                                 forImages:images
+                                                                           progressHandler:(void(^)(double progress))progressHandler];
     return result;
 }
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                                   forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                            progressHandler:(void(^)(double progress))progressHandler
 {
     id<OSImageHashingProvider> imageHashingProvider = OSImageHashingProviderFromImageHashingProviderId(imageHashingProviderId);
     OSHashDistanceType hashDistanceTreshold = [imageHashingProvider hashDistanceSimilarityThreshold];
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [self similarImagesWithProvider:imageHashingProviderId
                                                                  withHashDistanceThreshold:hashDistanceTreshold
-                                                                                 forImages:images];
+                                                                                 forImages:images
+                                                                           progressHandler:(void(^)(double progress))progressHandler];
     return result;
 }
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
                                                                   forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)images
+                                                            progressHandler:(void(^)(double progress))progressHandler
 {
     NSArray<OSTuple<OSImageId *, OSImageId *> *> *result = [[OSSimilaritySearch sharedInstance] similarImagesWithProvider:imageHashingProviderId
                                                                                                 withHashDistanceThreshold:hashDistanceThreshold
-                                                                                                                forImages:images];
+                                                                                                                forImages:images
+                                                                                                          progressHandler:progressHandler];
     return result;
 }
 

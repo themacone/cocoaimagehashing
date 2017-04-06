@@ -27,7 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<OSTuple<OSImageId *, OSImageId *> *> *)similarImagesWithProvider:(OSImageHashingProviderId)imageHashingProviderId
                                                   withHashDistanceThreshold:(OSHashDistanceType)hashDistanceThreshold
-                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)imageTuples;
+                                                                  forImages:(NSArray<OSTuple<OSImageId *, NSData *> *> *)imageTuples
+                                                            progressHandler:(void(^)(double progress))progressHandler;
 
 #pragma mark - Result Conversion
 
