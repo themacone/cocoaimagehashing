@@ -110,7 +110,7 @@
 
         if (progressHandler != nil)
         {
-            double progress = (double)(i + 1) / (double)(tuplesCount);
+            double progress = (double)i / (double)tuplesCount;
 
             progressHandler(progress);
         }
